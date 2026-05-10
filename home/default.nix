@@ -4,7 +4,7 @@
   imports = [
     ./hyprland.nix
     ./shell.nix
-    ./dev.nix
+    ./dev
     ./theme.nix
     ./gaming.nix
     ./zen.nix

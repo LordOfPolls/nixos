@@ -1,56 +1,14 @@
 { config, pkgs, lib, savepoint, ... }:
 
-let
-  dotnetCombined = pkgs.dotnetCorePackages.combinePackages [
-    pkgs.dotnet-sdk_8
-    pkgs.dotnet-sdk_9
-    pkgs.dotnet-sdk_10
-  ];
-in
 {
   home.packages = with pkgs; [
     micro
     vim
 
-    python3
-    pyenv
-    uv
-    ruff
-
-    rustup
-    bacon
-
-    go
-
-    nodejs
-    pnpm
-
-    dotnetCombined
-
-    jdk17
-
-    cmake
-    gnumake
-    gcc
-
-    pgadmin4
-
-    docker-compose
-    minikube
-
     gitkraken
 
-    jetbrains.pycharm
-    jetbrains.rust-rover
-    jetbrains.rider
-    jetbrains.datagrip
-
-    sqlx-cli
     pre-commit
-    playwright
     pkgs.convco
-
-    arduino-ide
 
     jq
     htop
@@ -58,10 +16,6 @@ in
 
     savepoint.packages.${pkgs.system}.default
   ];
-
-  home.sessionVariables = {
-    DOTNET_ROOT = "${dotnetCombined}";
-  };
 
   programs.vscode = {
     enable = true;
@@ -80,13 +34,6 @@ in
   home.activation.ensureProjectsDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/Projects"
   '';
-
-  home.file = {
-    "PycharmProjects".source    = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects";
-    "RustRoverProjects".source  = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects";
-    "RiderProjects".source      = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects";
-    "DataGripProjects".source   = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects";
-  };
 
   programs.git = {
     enable = true;
