@@ -7,6 +7,12 @@ switch:
         || { notify-send -u critical "NixOS" "Switch failed"; exit 1; }
 
 
+# rebuild, switch, then git commit with generation info in the message
+commit: switch
+    gen=$(sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | tail -1 | awk '{print $1}') && \
+    git -C /etc/nixos commit -m "nixos: switch to generation $gen"
+
+
 # build and set as next boot target (no immediate activation)
 boot:
     sudo nixos-rebuild boot --flake {{flake}} \
