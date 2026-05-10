@@ -9,6 +9,7 @@ switch:
 
 # rebuild, switch, then git commit with generation info in the message
 commit: switch
+    git -C /etc/nixos add -A && \
     gen=$(sudo nix-env --list-generations --profile /nix/var/nix/profiles/system | tail -1 | awk '{print $1}') && \
     git -C /etc/nixos commit -m "nixos: switch to generation $gen"
 
