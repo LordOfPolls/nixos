@@ -55,7 +55,7 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto;
 
     loader = {
       systemd-boot = {
