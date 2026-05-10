@@ -1,7 +1,11 @@
 flake := "/etc/nixos#april"
 
+# format all nix files
+format:
+    alejandra /etc/nixos
+
 # rebuild and switch to new config
-switch:
+switch: format
     sudo nixos-rebuild switch --flake {{flake}} \
         && notify-send -u normal "NixOS" "Switch succeeded" \
         || { notify-send -u critical "NixOS" "Switch failed"; exit 1; }
@@ -15,7 +19,7 @@ commit: switch
 
 
 # build and set as next boot target (no immediate activation)
-boot:
+boot: format
     sudo nixos-rebuild boot --flake {{flake}} \
         && notify-send -u normal "NixOS" "Boot build succeeded" \
         || { notify-send -u critical "NixOS" "Boot build failed"; exit 1; }
@@ -29,7 +33,7 @@ dry:
 
 
 # update all flake inputs then switch, showing package diff
-update:
+update: format
     sudo nix flake update --flake /etc/nixos \
         && sudo nixos-rebuild switch --flake {{flake}} \
         && notify-send -u normal "NixOS" "Update succeeded" \
@@ -37,7 +41,7 @@ update:
 
 
 # update a single input: just bump nixpkgs
-bump input:
+bump input: format
     sudo nix flake update --flake /etc/nixos {{input}} \
         && sudo nixos-rebuild switch --flake {{flake}} \
         && notify-send -u normal "NixOS" "Bump of '{{input}}' succeeded" \

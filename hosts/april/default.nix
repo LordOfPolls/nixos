@@ -332,6 +332,7 @@
     claude-code
     just
     nvd
+    alejandra
 
   ];
 
