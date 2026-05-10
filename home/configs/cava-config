@@ -1,0 +1,53 @@
+[general]
+framerate = 120
+live-config = 1
+autosens = 1
+sensitivity = 75
+bars = 0
+bar_width = 1
+bar_spacing = 1
+center_align = 1
+max_height = 100
+lower_cutoff_freq = 30
+higher_cutoff_freq = 17000
+sleep_timer = 0
+
+[input]
+method = pipewire
+source = auto
+
+[output]
+method = noncurses
+channels = stereo
+reverse = 1
+synchronized_sync = 1
+show_idle_bar_heads = 1
+
+[color]
+background = '#0B1A14'
+gradient = 1
+gradient_color_1 = '#071109'
+gradient_color_2 = '#0D4025'
+gradient_color_3 = '#1A9C6B'
+gradient_color_4 = '#2ED8A2'
+gradient_color_5 = '#00E1C0'
+gradient_color_6 = '#00F6D8'
+gradient_color_7 = '#50FFF0'
+gradient_color_8 = '#AAFFF0'
+
+[smoothing]
+monstercat = 1
+waves = 0
+noise_reduction = 40
+
+[eq]
+1  = 2.80
+2  = 2.20
+3  = 1.60
+4  = 0.50
+5  = 0.20
+6  = 0.35
+7  = 0.55
+8  = 1.40
+9  = 2.10
+10 = 2.90

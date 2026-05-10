@@ -1,0 +1,350 @@
+/* --- Lunar Theme --- */
+
+* {
+    font-family:
+        "SF Pro Text", "Inter", "Segoe UI", "JetBrainsMono Nerd Font", "Noto Color Emoji", sans-serif;
+    font-size: 13px;
+    min-height: 0;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+#waybar {
+    background: #12141e;
+    color: #c8ccd4;
+    margin: 0px;
+    font-weight: 500;
+}
+
+/* --- Left Modules (Individual Rounded Blocks) --- */
+#custom-launcher,
+#workspaces,
+#custom-music,
+#custom-uptime,
+#cpu {
+    background-color: #1a1d2a;
+    padding: 0.3rem 0.7rem;
+    margin: 2px 0px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(5, 8, 18, 0.4);
+    min-width: 0;
+    border: none;
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out;
+}
+
+#custom-launcher {
+    padding: 0.3rem 0.7rem;
+    margin-left: 7px;
+    margin-right: 5px;
+    color: #7aa2d4;
+    font-size: 16px;
+}
+
+#workspaces {
+    padding: 2px;
+    margin-right: 5px;
+}
+
+#custom-music {
+    margin-right: 5px;
+    color: #7dac8e;
+}
+
+#custom-uptime {
+    margin-right: 5px;
+    color: #a0b4c8;
+}
+
+/* Hover - left modules */
+#custom-launcher:hover,
+#custom-music:hover,
+#custom-uptime:hover,
+#cpu:hover {
+    background-color: #222636;
+}
+
+#workspaces button {
+    color: #5a6070;
+    border-radius: 5px;
+    padding: 0.3rem 0.6rem;
+    background: transparent;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    outline: none;
+}
+
+#workspaces button.active {
+    color: #7aa2d4;
+    background-color: rgba(122, 162, 212, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(122, 162, 212, 0.2);
+}
+
+#workspaces button:hover {
+    background: #222636;
+    color: #c8ccd4;
+}
+
+/* --- Center Module (Rounded Block) --- */
+#window,
+#clock {
+    background-color: #1a1d2a;
+    padding: 0.3rem 0.7rem;
+    margin: 2px 0px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(5, 8, 18, 0.4);
+    min-width: 0;
+    border: none;
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out;
+}
+
+#window {
+    color: #a0b4c8;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+#window:hover,
+#clock:hover {
+    background-color: #222636;
+}
+
+/* --- Pomodoro --- */
+#custom-pomodoro {
+    background-color: #1a1d2a;
+    padding: 0.3rem 0.7rem;
+    margin: 2px 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(5, 8, 18, 0.4);
+    min-width: 0;
+    border: none;
+    outline: none;
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out,
+        outline 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+    color: #a0b4c8;
+    font-weight: 600;
+}
+
+#custom-pomodoro:hover {
+    background-color: #222636;
+    color: #c8ccd4;
+    outline: 1px solid rgba(200, 210, 225, 0.08);
+    outline-offset: -1px;
+}
+
+#custom-pomodoro.work,
+#custom-pomodoro.break {
+    color: #7aa2d4;
+    background-color: rgba(122, 162, 212, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(122, 162, 212, 0.2);
+    outline: none;
+}
+
+/* --- Right Modules (Seamless Bar) --- */
+#pulseaudio,
+#backlight,
+#network,
+#custom-wireguard,
+#cpu,
+#temperature,
+#custom-gpu,
+#memory,
+#disk,
+#tray,
+#idle_inhibitor,
+#custom-lock,
+#custom-power,
+#battery {
+    background-color: #1a1d2a;
+    padding: 0.3rem 0.7rem;
+    margin: 2px 0px;
+    border-radius: 0;
+    box-shadow: none;
+    min-width: 0;
+    border: none;
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out;
+}
+
+#pulseaudio:hover,
+#backlight:hover,
+#network:hover,
+#custom-wireguard:hover,
+#cpu:hover,
+#temperature:hover,
+#custom-gpu:hover,
+#memory:hover,
+#disk:hover,
+#tray:hover,
+#idle_inhibitor:hover,
+#custom-lock:hover,
+#custom-power:hover,
+#battery:hover {
+    background-color: #222636;
+}
+
+/* --- Right module specific styles --- */
+#pulseaudio {
+    color: #c8ccd4;
+    margin-left: 0px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+#pulseaudio.warning {
+    color: #d4a54a;
+}
+
+#pulseaudio.high {
+    color: #d48a3a;
+}
+
+#pulseaudio.overamplified {
+    color: #c45a5a;
+}
+
+#network {
+    color: #c8ccd4;
+}
+
+#network.disconnected {
+    color: #c45a5a;
+}
+
+#custom-wireguard {
+    color: #5a6070;
+}
+
+#custom-wireguard.connected {
+    color: #7dac8e;
+}
+
+#custom-wireguard.disconnected {
+    color: #c45a5a;
+}
+
+#cpu {
+    color: #c8ccd4;
+}
+
+#temperature {
+    color: #7dac8e;
+}
+
+#temperature.critical {
+    color: #c45a5a;
+}
+
+#custom-gpu {
+    color: #7aa2d4;
+}
+
+#memory {
+    color: #a0b4c8;
+}
+
+#disk {
+    color: #d4b074;
+}
+
+#custom-uptime {
+    color: #a0b4c8;
+}
+
+#clock {
+    color: #d4b074;
+    font-weight: 500;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#backlight {
+    color: #c8ccd4;
+}
+
+#tray {
+    color: #c8ccd4;
+    padding: 0.3rem 0.5rem;
+}
+
+#tray > .passive {
+    color: #5a6070;
+}
+
+#tray > .active {
+    color: #7aa2d4;
+}
+
+#tray > .needs-attention {
+    color: #c45a5a;
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#idle_inhibitor {
+    color: #5a6070;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+#idle_inhibitor.activated {
+    color: #d4b074;
+}
+
+#custom-lock {
+    color: #a0b4c8;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+#custom-power {
+    color: #c45a5a;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    margin-right: 7px;
+}
+
+#battery {
+    color: #7aa2d4;
+}
+
+#battery.charging {
+    color: #7dac8e;
+}
+
+#battery.warning:not(.charging) {
+    color: #c45a5a;
+}
+
+/* --- Tooltip --- */
+tooltip {
+    background-color: #12141e;
+    color: #c8ccd4;
+    padding: 5px 12px;
+    margin: 2px 0px;
+    border-radius: 6px;
+    border: 1px solid rgba(122, 162, 212, 0.15);
+    box-shadow: 0 4px 12px rgba(5, 8, 18, 0.5);
+    font-size: 12px;
+}

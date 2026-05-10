@@ -1,0 +1,166 @@
+{
+    "layer": "top",
+    "height": 34,
+    "margin-bottom": 0,
+    "spacing": 0,
+    "modules-left": [
+        "custom/launcher",
+        "hyprland/workspaces",
+        "custom/music"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "custom/wireguard",
+        "cpu",
+        "temperature",
+        "custom/gpu",
+        "memory",
+        "disk",
+        "tray",
+        "idle_inhibitor",
+        "clock",
+        "custom/lock",
+        "custom/power"
+    ],
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰒛",
+            "deactivated": "󰒜"
+        },
+        "tooltip": true,
+        "tooltip-format-activated": "Caffeine: ON",
+        "tooltip-format-deactivated": "Caffeine: OFF"
+    },
+    "custom/music": {
+        "format": "  {}",
+        "escape": true,
+        "interval": 0,
+        "tooltip": false,
+        "exec": "playerctl --follow metadata --format='{{ artist }} - {{ title }}' 2>/dev/null",
+        "on-click": "playerctl play-pause",
+        "max-length": 50
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{:%H:%M  %a %e %b}",
+        "tooltip-format": "{:%A, %e %B %Y}"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% ",
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
+    },
+    "custom/wireguard": {
+        "exec": "~/.local/bin/wg-toggle.sh status",
+        "interval": 5,
+        "return-type": "json",
+        "on-click": "~/.local/bin/wg-toggle.sh toggle",
+        "on-click-right": "~/.local/bin/wg-toggle.sh pick",
+        "signal": 8,
+        "tooltip": true
+    },
+    "network": {
+        "format-wifi": "󰤢",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "⚠",
+        "interval": 5,
+        "tooltip-format": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "nmrs"
+    },
+    "pulseaudio": {
+        "scroll-step": 1,
+        "max-volume": 150,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": " ",
+            "default": [
+                "",
+                ""
+            ]
+        },
+        "on-click": "pwvucontrol",
+        "format-high": "{volume}% ",
+        "format-overamplified": "{volume}% ",
+        "states": {
+            "normal": 85,
+            "warning": 101,
+            "high": 126,
+            "overamplified": 151
+        }
+    },
+    "hyprland/workspaces": {
+        "all-outputs": true,
+        "active-only": false,
+        "on-click": "activate",
+        "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "urgent": "",
+            "active": "",
+            "default": ""
+        }
+    },
+    "custom/launcher": {
+        "format": " 󰣇",
+        "on-click": "hyprctl dispatch exec hyprlauncher",
+        "tooltip": false
+    },
+    "custom/lock": {
+        "format": "  ",
+        "on-click": "hyprlock",
+        "tooltip": true,
+        "tooltip-format": "Lock"
+    },
+    "custom/power": {
+        "format": "  ",
+        "on-click": "zenity --question --text='Shut down?' && systemctl poweroff",
+        "tooltip": true,
+        "tooltip-format": "Shutdown"
+    },
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "format": "{temperatureC}°C ",
+        "format-critical": "{temperatureC}°C ",
+        "critical-threshold": 80,
+        "tooltip-format": "CPU: {temperatureC}°C"
+    },
+    "custom/gpu": {
+        "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader,nounits | awk -F', ' '{printf \"%s%% %s°C 󰺢\", $1, $2}'",
+        "interval": 5,
+        "tooltip-format": "GPU usage and temperature"
+    },
+    "disk": {
+        "format": "{percentage_used}% 󰋊",
+        "path": "/",
+        "interval": 60,
+        "tooltip-format": "{used} / {total} ({path})"
+    }
+}
