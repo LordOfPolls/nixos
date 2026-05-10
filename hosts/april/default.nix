@@ -38,6 +38,9 @@
       "--update-input" "claude-code"
       "--update-input" "claude-desktop-flake"
       "--update-input" "firefox-addons"
+      "--update-input" "savepoint"
+      "--update-input" "nix-cachyos-kernel"
+      "--update-input" "zen-browser"
     ];
     dates = "06:00";
     randomizedDelaySec = "45min";
