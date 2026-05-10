@@ -206,7 +206,33 @@
     enable = true;
     settings = {
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
       AllowUsers = [ "polls" ];
+      MaxAuthTries = 3;
+      LoginGraceTime = 30;
+      ClientAliveInterval = 300;
+      ClientAliveCountMax = 2;
+      X11Forwarding = false;
+    };
+  };
+
+  services.fail2ban = {
+    enable = true;
+    maxretry = 3;
+    ignoreIP = [
+      "127.0.0.1/8"
+      "::1"
+      "10.0.0.0/24"
+    ];
+    jails.sshd = {
+      settings = {
+        enabled = true;
+        filter = "sshd";
+        maxretry = 3;
+        bantime = "1h";
+        findtime = "10m";
+      };
     };
   };
 
