@@ -12,6 +12,7 @@
     ./theme.nix
     ./gaming.nix
     ./zen.nix
+    ./activity-inhibit.nix
   ];
 
   home = {
