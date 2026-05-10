@@ -1,6 +1,10 @@
-{ config, pkgs, lib, savepoint, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  savepoint,
+  ...
+}: {
   home.packages = with pkgs; [
     micro
     vim
@@ -31,7 +35,7 @@
     enableZshIntegration = true;
   };
 
-  home.activation.ensureProjectsDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureProjectsDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p "$HOME/Projects"
   '';
 

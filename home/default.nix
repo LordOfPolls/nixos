@@ -1,6 +1,10 @@
-{ config, pkgs, lib, savepoint, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  savepoint,
+  ...
+}: {
   imports = [
     ./hyprland.nix
     ./shell.nix

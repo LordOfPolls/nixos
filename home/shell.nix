@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -12,7 +15,7 @@
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = [ "git" ];
+      plugins = ["git"];
     };
 
     shellAliases = {
@@ -82,6 +85,6 @@
     enable = true;
     settings.user.name = "LordOfPolls";
     settings.user.email = "dev@lordofpolls.com";
-    extraConfig.credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
+    extraConfig.credential.helper = "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
   };
 }

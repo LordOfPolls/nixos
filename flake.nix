@@ -23,13 +23,24 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, claude-code, claude-desktop-flake, firefox-addons, savepoint, zen-browser, nix-cachyos-kernel, ... }: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    claude-code,
+    claude-desktop-flake,
+    firefox-addons,
+    savepoint,
+    zen-browser,
+    nix-cachyos-kernel,
+    ...
+  }: {
     nixosConfigurations.april = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         home-manager.nixosModules.home-manager
         ./hosts/april
-        { nixpkgs.overlays = [ claude-code.overlays.default nix-cachyos-kernel.overlays.pinned ]; }
+        {nixpkgs.overlays = [claude-code.overlays.default nix-cachyos-kernel.overlays.pinned];}
         {
           environment.systemPackages = [
             claude-desktop-flake.packages.x86_64-linux.claude-desktop
@@ -40,7 +51,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = { inherit firefox-addons savepoint zen-browser; };
+            extraSpecialArgs = {inherit firefox-addons savepoint zen-browser;};
             backupFileExtension = "hm-backup";
             users.polls = import ./home;
           };

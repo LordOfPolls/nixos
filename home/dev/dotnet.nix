@@ -1,13 +1,14 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   dotnetCombined = pkgs.dotnetCorePackages.combinePackages [
     pkgs.dotnet-sdk_8
     pkgs.dotnet-sdk_9
     pkgs.dotnet-sdk_10
   ];
-in
-{
+in {
   home.packages = with pkgs; [
     dotnetCombined
 

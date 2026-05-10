@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-
 {
-  imports = [ ./hardware-configuration.nix ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [./hardware-configuration.nix];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
@@ -17,11 +20,11 @@
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
-    trusted-users = [ "root" "polls" ];
+    trusted-users = ["root" "polls"];
   };
   nix.optimise = {
     automatic = true;
-    dates = [ "03:00" ];
+    dates = ["03:00"];
   };
   nix.gc = {
     automatic = true;
@@ -33,14 +36,22 @@
     enable = true;
     flake = "/etc/nixos#april";
     flags = [
-      "--update-input" "nixpkgs"
-      "--update-input" "home-manager"
-      "--update-input" "claude-code"
-      "--update-input" "claude-desktop-flake"
-      "--update-input" "firefox-addons"
-      "--update-input" "savepoint"
-      "--update-input" "nix-cachyos-kernel"
-      "--update-input" "zen-browser"
+      "--update-input"
+      "nixpkgs"
+      "--update-input"
+      "home-manager"
+      "--update-input"
+      "claude-code"
+      "--update-input"
+      "claude-desktop-flake"
+      "--update-input"
+      "firefox-addons"
+      "--update-input"
+      "savepoint"
+      "--update-input"
+      "nix-cachyos-kernel"
+      "--update-input"
+      "zen-browser"
     ];
     dates = "06:00";
     randomizedDelaySec = "45min";
@@ -50,7 +61,7 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
+      openldap = prev.openldap.overrideAttrs (_: {doCheck = false;});
     })
   ];
 
@@ -69,8 +80,8 @@
     plymouth.enable = true;
 
     tmp.useTmpfs = true;
-    initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-    kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
+    initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+    kernelParams = ["nvidia-drm.modeset=1" "nvidia-drm.fbdev=1"];
   };
 
   zramSwap = {
@@ -80,7 +91,7 @@
 
   services.fstrim.enable = true;
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = ["ntfs"];
 
   fileSystems."/mnt/betty" = {
     device = "//10.0.0.173/storage";
@@ -97,7 +108,7 @@
     ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -118,7 +129,7 @@
     networkmanager.enable = true;
     firewall.enable = true;
     hosts = {
-      "10.0.0.173" = [ "betty" ];
+      "10.0.0.173" = ["betty"];
     };
   };
 
@@ -153,7 +164,6 @@
     user = "polls";
   };
 
-
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -161,7 +171,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
     config.common.default = "hyprland;gtk";
   };
 
@@ -208,7 +218,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
-      AllowUsers = [ "polls" ];
+      AllowUsers = ["polls"];
       MaxAuthTries = 3;
       LoginGraceTime = 30;
       ClientAliveInterval = 300;
@@ -267,9 +277,9 @@
       open-sans
     ];
     fontconfig.defaultFonts = {
-      monospace = [ "JetBrainsMono Nerd Font" ];
-      sansSerif = [ "Noto Sans" ];
-      emoji = [ "Noto Color Emoji" ];
+      monospace = ["JetBrainsMono Nerd Font"];
+      sansSerif = ["Noto Sans"];
+      emoji = ["Noto Color Emoji"];
     };
   };
 
@@ -291,7 +301,6 @@
   };
 
   programs.zsh.enable = true;
-
 
   environment.systemPackages = with pkgs; [
     nvtopPackages.nvidia
@@ -333,7 +342,6 @@
     just
     nvd
     alejandra
-
   ];
 
   time.timeZone = "Europe/London";
@@ -357,25 +365,25 @@
   security.protectKernelImage = true;
 
   boot.kernel.sysctl = {
-    "net.ipv4.conf.all.rp_filter"            = 2;
-    "net.ipv4.conf.default.rp_filter"        = 2;
-    "net.ipv4.conf.all.accept_redirects"     = 0;
+    "net.ipv4.conf.all.rp_filter" = 2;
+    "net.ipv4.conf.default.rp_filter" = 2;
+    "net.ipv4.conf.all.accept_redirects" = 0;
     "net.ipv4.conf.default.accept_redirects" = 0;
-    "net.ipv6.conf.all.accept_redirects"     = 0;
+    "net.ipv6.conf.all.accept_redirects" = 0;
     "net.ipv6.conf.default.accept_redirects" = 0;
-    "net.ipv4.conf.all.send_redirects"       = 0;
-    "net.ipv4.conf.default.send_redirects"   = 0;
-    "net.ipv4.conf.all.accept_source_route"  = 0;
-    "net.ipv6.conf.all.accept_source_route"  = 0;
-    "net.ipv4.icmp_echo_ignore_broadcasts"   = 1;
-    "net.ipv4.tcp_syncookies"                = 1;
-    "net.ipv4.conf.all.log_martians"         = 1;
+    "net.ipv4.conf.all.send_redirects" = 0;
+    "net.ipv4.conf.default.send_redirects" = 0;
+    "net.ipv4.conf.all.accept_source_route" = 0;
+    "net.ipv6.conf.all.accept_source_route" = 0;
+    "net.ipv4.icmp_echo_ignore_broadcasts" = 1;
+    "net.ipv4.tcp_syncookies" = 1;
+    "net.ipv4.conf.all.log_martians" = 1;
 
-    "kernel.kptr_restrict"             = 2;
-    "kernel.dmesg_restrict"            = 1;
+    "kernel.kptr_restrict" = 2;
+    "kernel.dmesg_restrict" = 1;
     "kernel.unprivileged_bpf_disabled" = 1;
-    "net.core.bpf_jit_harden"         = 2;
-    "kernel.perf_event_paranoid"       = 1;
+    "net.core.bpf_jit_harden" = 2;
+    "kernel.perf_event_paranoid" = 1;
 
     "vm.mmap_min_addr" = 65536;
   };
