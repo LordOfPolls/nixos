@@ -353,5 +353,31 @@
 
   programs.fuse.userAllowOther = true;
 
+  security.protectKernelImage = true;
+
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.all.rp_filter"            = 2;
+    "net.ipv4.conf.default.rp_filter"        = 2;
+    "net.ipv4.conf.all.accept_redirects"     = 0;
+    "net.ipv4.conf.default.accept_redirects" = 0;
+    "net.ipv6.conf.all.accept_redirects"     = 0;
+    "net.ipv6.conf.default.accept_redirects" = 0;
+    "net.ipv4.conf.all.send_redirects"       = 0;
+    "net.ipv4.conf.default.send_redirects"   = 0;
+    "net.ipv4.conf.all.accept_source_route"  = 0;
+    "net.ipv6.conf.all.accept_source_route"  = 0;
+    "net.ipv4.icmp_echo_ignore_broadcasts"   = 1;
+    "net.ipv4.tcp_syncookies"                = 1;
+    "net.ipv4.conf.all.log_martians"         = 1;
+
+    "kernel.kptr_restrict"             = 2;
+    "kernel.dmesg_restrict"            = 1;
+    "kernel.unprivileged_bpf_disabled" = 1;
+    "net.core.bpf_jit_harden"         = 2;
+    "kernel.perf_event_paranoid"       = 1;
+
+    "vm.mmap_min_addr" = 65536;
+  };
+
   system.stateVersion = "25.11";
 }
