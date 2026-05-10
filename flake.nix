@@ -19,16 +19,17 @@
 
     savepoint.url = "github:NamtaoProductions/savepoint";
 
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, claude-code, claude-desktop-flake, firefox-addons, savepoint, zen-browser, ... }: {
+  outputs = { self, nixpkgs, home-manager, claude-code, claude-desktop-flake, firefox-addons, savepoint, zen-browser, nix-cachyos-kernel, ... }: {
     nixosConfigurations.april = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         home-manager.nixosModules.home-manager
         ./hosts/april
-        { nixpkgs.overlays = [ claude-code.overlays.default ]; }
+        { nixpkgs.overlays = [ claude-code.overlays.default nix-cachyos-kernel.overlays.pinned ]; }
         {
           environment.systemPackages = [
             claude-desktop-flake.packages.x86_64-linux.claude-desktop
