@@ -44,7 +44,7 @@
     pavucontrol
     pwvucontrol
 
-    glances
+    # glances
     nwg-displays
 
     profile-sync-daemon

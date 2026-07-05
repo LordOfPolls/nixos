@@ -4,7 +4,11 @@
   lib,
   ...
 }: {
-  imports = [./hardware-configuration.nix];
+  imports = [
+    ./hardware-configuration.nix
+    ./cloudflared.nix
+    ./asf.nix
+  ];
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
@@ -52,12 +56,15 @@
       "nix-cachyos-kernel"
       "--update-input"
       "zen-browser"
+      "--update-input"
+      "millennium"
     ];
     dates = "06:00";
     randomizedDelaySec = "45min";
     persistent = true;
   };
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = ["nodejs-20.20.2"];
 
   nixpkgs.overlays = [
     (final: prev: {
@@ -215,7 +222,7 @@
   services.openssh = {
     enable = true;
     settings = {
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
       AllowUsers = ["polls"];
@@ -255,6 +262,7 @@
 
   programs.steam = {
     enable = true;
+    package = pkgs.millennium-steam;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
@@ -363,6 +371,22 @@
   programs.fuse.userAllowOther = true;
 
   security.protectKernelImage = true;
+
+  security.sudo.extraRules = [
+    {
+      users = ["polls"];
+      commands = [
+        {
+          command = "/run/current-system/sw/bin/wg";
+          options = ["NOPASSWD"];
+        }
+        {
+          command = "/run/current-system/sw/bin/wg-quick";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   boot.kernel.sysctl = {
     "net.ipv4.conf.all.rp_filter" = 2;

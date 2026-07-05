@@ -85,6 +85,6 @@
     enable = true;
     settings.user.name = "LordOfPolls";
     settings.user.email = "dev@lordofpolls.com";
-    extraConfig.credential.helper = "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
+    settings.credential.helper = "${pkgs.git.override {withLibsecret = true;}}/bin/git-credential-libsecret";
   };
 }

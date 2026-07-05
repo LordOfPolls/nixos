@@ -21,6 +21,9 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    millennium.url = "github:Trivaris/Millennium?dir=packages/nix";
+    millennium.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -33,14 +36,16 @@
     savepoint,
     zen-browser,
     nix-cachyos-kernel,
+    millennium,
     ...
   }: {
     nixosConfigurations.april = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
+        {nixpkgs.hostPlatform = "x86_64-linux";}
+
         home-manager.nixosModules.home-manager
         ./hosts/april
-        {nixpkgs.overlays = [claude-code.overlays.default nix-cachyos-kernel.overlays.pinned];}
+        {nixpkgs.overlays = [claude-code.overlays.default nix-cachyos-kernel.overlays.pinned millennium.overlays.default];}
         {
           environment.systemPackages = [
             claude-desktop-flake.packages.x86_64-linux.claude-desktop
